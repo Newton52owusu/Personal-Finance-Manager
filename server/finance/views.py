@@ -4,10 +4,19 @@ from .forms import ExpenseForm, CategoryForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 
+from django.shortcuts import render
+
+
+
 @login_required
 def expense_list(request):
     expenses = Expense.objects.filter(user=request.user)
     return render(request, 'expense_list.html', {'expenses': expenses})
+
+
+def base_view(request):
+    # Add any additional logic you need for the header view
+    return render(request, 'header.html')
 
 def add_expense(request):
     if request.method == 'POST':
